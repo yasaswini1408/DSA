@@ -31,6 +31,18 @@ void printList(Node* head) {
     cout << endl;
 }
 
+Node* reverseIterative(Node* head) {
+    Node* prev = NULL;
+    Node* curr = head;
+    while (curr != NULL) {
+        Node* nextNode = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nextNode;
+    }
+    return prev;
+}
+
 Node* reverseRecursive(Node* head) {
     if (head == NULL || head->next == NULL)
         return head;
@@ -54,6 +66,9 @@ int main() {
     cout << "Original List: ";
     printList(head);
     head = reverseRecursive(head);
+    cout << "Reversed List: ";
+    printList(head);
+    head = reverseIterative(head);
     cout << "Reversed List: ";
     printList(head);
 }

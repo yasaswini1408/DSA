@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int data) {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+void printLL(Node* head) {
+    Node* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+}
+
+bool detectLoop(Node* head) {
+    Node *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+
+int main(){
+    cout << "Enter number of nodes: ";
+    int k;
+    cin >> k;
+    Node* head = NULL;
+    Node* temp = NULL;
+    for (int i = 0; i < k; i++) {
+        int v;
+        cin >> v;
+        Node* n = new Node(v);
+        if (head == NULL) {
+            head = n;
+            temp = n;
+        } else {
+            temp->next = n;
+            temp = temp->next;
+        }
+    }
+
+    head->next->next->next->next->next = head->next->next;
+
+    if (detectLoop(head)) cout << "Loop detected in the linked list.\n";
+    else cout << "No loop detected in the linked list.\n";
+
+}

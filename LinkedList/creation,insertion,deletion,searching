@@ -1,0 +1,187 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int data) {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+int lengthLL(Node* head) {
+    int c = 0;
+    Node* temp = head;
+    while (temp != NULL) {
+        c++;
+        temp = temp->next;
+    }
+    return c;
+}
+
+void printLL(Node* head) {
+    Node* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+}
+
+bool searchInLL(Node* head, int key) {
+    Node* temp = head;
+    while (temp != NULL) {
+        if (temp->data == key) {
+            return true;
+        }
+        temp = temp->next;
+    }
+    return false;
+}
+
+void insertAtStart(Node* head, int key) {
+    Node* n = new Node(key);
+    n->next = head;
+    head = n;
+}
+
+void insertAtEnd(Node* head, int key) {
+    Node* n = new Node(key);
+    Node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = n;
+}
+
+void insertAtPosition(Node* head, int key, int pos) {
+    Node* n = new Node(key);
+    Node* temp = head;
+    while (pos > 0 && temp != NULL) {
+        temp = temp->next;
+        pos--;
+    }
+    n->next = temp->next;
+    temp->next = n;
+}
+
+void deleteNode(Node* head, int key) {
+    Node* temp = head;
+    while (temp->data != key && temp != NULL) {
+        temp = temp->next;
+    }
+    temp->next = temp->next->next;
+}
+
+void deleteAtPosition(Node* head, int pos) {
+    Node* temp = head;
+    while (pos > 0 && temp != NULL) {
+        temp = temp->next;
+        pos--;
+    }
+    temp->next = temp->next->next;
+}
+
+void deleteAtStart(Node* head) {
+    head = head->next;
+}
+
+void deleteAtEnd(Node* head) {
+    Node* temp = head;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+}
+
+int main() {
+    cout << "Enter number of nodes: ";
+    int k;
+    cin >> k;
+    Node* head = NULL;
+    Node* temp = NULL;
+    for (int i = 0; i < k; i++) {
+        int v;
+        cin >> v;
+        Node* n = new Node(v);
+        if (head == NULL) {
+            head = n;
+            temp = n;
+        } else {
+            temp->next = n;
+            temp = temp->next;
+        }
+    }
+
+    cout << "Linked list is: ";
+    printLL(head);
+    cout << endl;
+
+    int s = lengthLL(head);
+    cout << "Length of linked list is: " << s << endl;
+
+    cout << "Insert at start and enter value: ";
+    int va;
+    cin >> va;
+    insertAtStart(head, va);
+
+    cout << "Linked list after insertion at start: ";
+    printLL(head);
+
+    cout << "\nInsert at end and enter value: ";
+    int val;
+    cin >> val;
+    insertAtEnd(head, val);
+
+    cout << "Linked list after insertion at end: ";
+    printLL(head);
+
+    cout << "\nInsert at position and enter value and position: ";
+    int value, pos;
+    cin >> value >> pos;
+    insertAtPosition(head, value, pos);
+
+    cout << "Linked list after insertion at position: ";
+    printLL(head);
+
+    cout << "\nEnter value to be searched: ";
+    int key;
+    cin >> key;
+
+    bool found = searchInLL(head, key);
+    if (found) {
+        cout << "Value found in linked list\n";
+    } else {
+        cout << "Value not found in linked list\n";
+    }
+
+    cout << "Enter value to be deleted: ";
+    int delKey;
+    cin >> delKey;
+    deleteNode(head, delKey);
+
+    cout << "Linked list after deletion of value: ";
+    printLL(head);
+
+    cout << "\nEnter position to be deleted: ";
+    int delPos;
+    cin >> delPos;
+    deleteAtPosition(head, delPos);
+
+    cout << "Linked list after deletion at position: ";
+    printLL(head);
+
+    cout << "\nDelete at start\n";
+    deleteAtStart(head);
+
+    cout << "Linked list after deletion at start: ";
+    printLL(head);
+
+    cout << "\nDelete at end\n";
+    deleteAtEnd(head);
+
+    cout << "Linked list after deletion at end: ";
+    printLL(head);
+
+    return 0;
+}

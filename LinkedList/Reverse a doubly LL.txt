@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+class DoublyLinkedListNode {
+public:
+    int data;
+    DoublyLinkedListNode* next;
+    DoublyLinkedListNode* prev;
+
+    DoublyLinkedListNode(int val) {
+        data = val;
+        next = NULL;
+        prev = NULL;
+    }
+};
+
+DoublyLinkedListNode* reverse(DoublyLinkedListNode* llist) {
+    if (llist == NULL)
+        return NULL;
+
+    DoublyLinkedListNode* curr = llist;
+    DoublyLinkedListNode* temp = NULL;
+
+    while (curr != NULL) {
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+        curr = curr->prev;
+    }
+
+    if (temp != NULL) {
+        llist = temp->prev;
+    }
+
+    return llist;
+}
+
+int main() {
+    // Doubly linked list: 1 <-> 2 <-> 3 <-> 4
+    DoublyLinkedListNode* head = new DoublyLinkedListNode(1);
+    head->next = new DoublyLinkedListNode(2);
+    head->next->prev = head;
+    head->next->next = new DoublyLinkedListNode(3);
+    head->next->next->prev = head->next;
+    head->next->next->next = new DoublyLinkedListNode(4);
+    head->next->next->next->prev = head->next->next;
+
+    head = reverse(head);
+
+    // Print reversed list
+    DoublyLinkedListNode* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+
+    return 0;
+}

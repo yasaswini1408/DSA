@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class DoublyLinkedListNode {
+public:
+    int data;
+    DoublyLinkedListNode* next;
+    DoublyLinkedListNode* prev;
+
+    DoublyLinkedListNode(int val) {
+        data = val;
+        next = NULL;
+        prev = NULL;
+    }
+};
+
+DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* llist, int data) {
+    DoublyLinkedListNode* n = new DoublyLinkedListNode(data);
+
+    if (llist == NULL) {
+        llist = n;
+        return n;
+    }
+
+    if (data <= llist->data) {
+        n->next = llist;
+        llist->prev = n;
+        return n;
+    }
+
+    DoublyLinkedListNode* temp = llist;
+    while (temp->next != NULL && temp->next->data < data) {
+        temp = temp->next;
+    }
+
+    n->next = temp->next;
+    n->prev = temp;
+
+    if (temp->next != NULL) {
+        temp->next->prev = n;
+    }
+
+    temp->next = n;
+
+    return llist;
+}
+
+int main() {
+    // Initial sorted doubly linked list: 2 <-> 4 <-> 6
+    DoublyLinkedListNode* head = new DoublyLinkedListNode(2);
+    head->next = new DoublyLinkedListNode(4);
+    head->next->prev = head;
+    head->next->next = new DoublyLinkedListNode(6);
+    head->next->next->prev = head->next;
+
+    // Insert value
+    head = sortedInsert(head, 5);
+
+    // Print list forward
+    DoublyLinkedListNode* temp = head;
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+
+    return 0;
+}

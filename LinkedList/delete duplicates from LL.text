@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+class SinglyLinkedListNode {
+public:
+    int data;
+    SinglyLinkedListNode* next;
+
+    SinglyLinkedListNode(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+SinglyLinkedListNode* removeDuplicates(SinglyLinkedListNode* llist) {
+    SinglyLinkedListNode* temp = llist;
+    SinglyLinkedListNode* curr = llist;
+
+    while (temp != nullptr && temp->next != nullptr) {
+        curr = temp->next;
+
+        if (temp->data == curr->data) {
+            temp->next = curr->next;
+        } else {
+            temp = temp->next;
+        }
+    }
+    return llist;
+}
+
+int main() {
+    // Sorted list with duplicates: 1 -> 1 -> 2 -> 3 -> 3
+    SinglyLinkedListNode* head = new SinglyLinkedListNode(1);
+    head->next = new SinglyLinkedListNode(1);
+    head->next->next = new SinglyLinkedListNode(2);
+    head->next->next->next = new SinglyLinkedListNode(3);
+    head->next->next->next->next = new SinglyLinkedListNode(3);
+
+    head = removeDuplicates(head);
+
+    // Print list after removing duplicates
+    while (head != nullptr) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+
+    return 0;
+}

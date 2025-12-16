@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class SinglyLinkedListNode {
+public:
+    int data;
+    SinglyLinkedListNode* next;
+
+    SinglyLinkedListNode(int val) {
+        data = val;
+        next = NULL;
+    }
+};
+
+int findMergeNode(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+    SinglyLinkedListNode* temp1 = head1;
+    SinglyLinkedListNode* temp2 = head2;
+
+    while (temp1 != temp2) {
+        if (temp1 == NULL)
+            temp1 = head2;
+        else
+            temp1 = temp1->next;
+
+        if (temp2 == NULL)
+            temp2 = head1;
+        else
+            temp2 = temp2->next;
+    }
+
+    return temp1->data;
+}
+
+int main() {
+    // Common merged part: 3 -> 4 -> 5
+    SinglyLinkedListNode* merge = new SinglyLinkedListNode(3);
+    merge->next = new SinglyLinkedListNode(4);
+    merge->next->next = new SinglyLinkedListNode(5);
+
+    // First list: 1 -> 2 -> 3 -> 4 -> 5
+    SinglyLinkedListNode* head1 = new SinglyLinkedListNode(1);
+    head1->next = new SinglyLinkedListNode(2);
+    head1->next->next = merge;
+
+    // Second list: 6 -> 3 -> 4 -> 5
+    SinglyLinkedListNode* head2 = new SinglyLinkedListNode(6);
+    head2->next = merge;
+
+    cout << "Merge point data: " << findMergeNode(head1, head2);
+
+    return 0;
+}

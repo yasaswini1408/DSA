@@ -9,12 +9,8 @@ public:
         return k;
     }
     bool isHappy(int n) {
-        unordered_set<int> seen;
-        while (n != 1) {
-            if (seen.count(n)) return false; 
-            seen.insert(n);
-            n = sum(n);
-        }
-        return true;
+        if (n == 1 or n == 7) return true;
+        else if (n < 10) return false;
+        else return isHappy(sum(n));
     }
 };

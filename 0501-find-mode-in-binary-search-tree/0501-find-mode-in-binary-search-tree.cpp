@@ -19,10 +19,11 @@ public:
         explore(s->left);
     }
     vector<int> findMode(TreeNode* root) {
-        if(root==NULL) return {};
-        f[root->val]++;
-        explore(root->left);
-        explore(root->right);
+        // if(root==NULL) return {};
+        // f[root->val]++;
+        // explore(root->left);
+        // explore(root->right);
+        explore(root);
         int m=INT_MIN;
         for(auto i:f){
             m=max(m,i.second);

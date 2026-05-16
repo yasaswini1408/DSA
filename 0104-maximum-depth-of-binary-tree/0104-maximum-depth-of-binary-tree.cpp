@@ -17,7 +17,7 @@ int k=1;
         return 1+max(depth(node->left),depth(node->right));
     }
     int maxDepth(TreeNode* root) {
-        if(root==NULL) return 0;
+        // if(root==NULL) return 0;
         return depth(root);
     }
 };

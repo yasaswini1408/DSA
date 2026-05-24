@@ -1,13 +1,12 @@
 class Solution {
 public:
     vector<int> limitOccurrences(vector<int>& nums, int k) {
-        unordered_map<int,int>mp;
-        vector<int>ans;
-        for(int x:nums){
-            if(mp[x]<k){
-                ans.push_back(x);
-                mp[x]++;
-            }
+        vector<int> ans;
+        int cnt=0;
+        for(int i=0;i < nums.size();i++){
+            if(i==0 || nums[i]!=nums[i-1]) cnt=1;
+            else cnt++;
+            if(cnt<=k) ans.push_back(nums[i]);
         }
         return ans;
     }

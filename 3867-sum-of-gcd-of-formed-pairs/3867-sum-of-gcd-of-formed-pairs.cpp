@@ -1,19 +1,20 @@
 class Solution {
 public:
     long long gcdSum(vector<int>& nums) {
-        vector<int>r(nums.size());
-        int mx=0;
-        for(int i=0;i<nums.size();i++){
-            mx=max(nums[i],mx);
-            r[i]=__gcd(nums[i],mx);
+        vector<int>mp(nums.size());
+        int mx=nums[0];
+        mp[0]=nums[0];
+        for(int i=1;i<nums.size();i++){
+            mx=max(mx,nums[i]);
+            mp[i]=__gcd(nums[i],mx);
         }
-        sort(r.begin(),r.end());
-        long long l=0,h=nums.size()-1,res=0;
+        // for(auto i:mp) cout<<i<<" ";
+        sort(mp.begin(),mp.end());
+        long long sum=0,l=0,h=mp.size()-1;
         while(l<h){
-            res+=__gcd(r[l],r[h]);
-            l++;
-            h--;
+            sum+=__gcd(mp[l],mp[h]);
+            l++;h--;
         }
-        return res;
+        return sum;
     }
 };

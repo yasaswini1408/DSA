@@ -6,7 +6,7 @@ public:
         for(int i=0;i<s.size();i++){
             if(s[i]=='1') one++;
             else zero++;
-            if(abs(one-zero)==1 or abs(one-zero)==0) c++;
+            if(abs(one-zero)<=1) c++;
         }
         return c;
     }

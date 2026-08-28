@@ -5,8 +5,7 @@ public:
         dp[0]=0;
         for(int i=1;i<=amount;i++){
             for(auto c:coins){
-                if(c>i) continue;
-                else{
+                if(c<=i){
                     dp[i]=min(dp[i],1+dp[i-c]);
                 }
             }

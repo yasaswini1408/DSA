@@ -1,21 +1,12 @@
-class Solution {
+class Solution{
 public:
-    bool uniformArray(vector<int>& num) {
-        int eve=0,odd=0;
-        for(int i=0;i<num.size();i++){
-            if(num[i]%2==0) eve++;
-            else odd++;
+    bool uniformArray(vector<int>& nums){
+        int odd=INT_MAX,even=INT_MAX;
+        for(int x:nums){
+            if(x%2)odd=min(odd,x);
+            else even=min(even,x);
         }
-        if(eve==num.size() or odd==num.size()) return true;
-        int mx=INT_MAX;
-        for(auto i:num){
-            if(i%2==1) mx=min(mx,i);
-        }
-        for(auto i:num){
-            if(i%2==0){
-                if(i-mx<1) return false;
-            }
-        }
-        return true;
+        if(odd==INT_MAX||even==INT_MAX) return true;
+        return even-odd>=1;
     }
 };

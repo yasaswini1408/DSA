@@ -16,6 +16,6 @@ public:
                 dp[j + 1] = min(dp[j], j - i + 1);
             }
         }
-        return res == n + 1 ? -1 : res;;
+        return res == n + 1 ? -1 : res;
     }
 };
